@@ -1,206 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uma carta para Marcela Morelli ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-        }
-
-        .container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* --- ESTILOS DO ENVELOPE --- */
-        .envelope-wrapper {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 1s ease-in-out;
-            z-index: 10;
-        }
-
-        .envelope {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background-color: #e56b7a;
-            border-radius: 5px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .envelope::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-top: 100px solid #ff7b89;
-            border-right: 150px solid transparent;
-            border-left: 150px solid transparent;
-            z-index: 3;
-            transform-origin: top;
-            transition: all 0.5s ease-in-out;
-        }
-
-        .envelope::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            border-bottom: 100px solid #d45d6c;
-            border-right: 150px solid #e56b7a;
-            border-left: 150px solid #e56b7a;
-            z-index: 2;
-        }
-
-        .btn-abrir {
-            margin-top: 40px;
-            padding: 12px 30px;
-            background-color: #fff;
-            color: #d45d6c;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s, background-color 0.2s;
-            z-index: 20;
-        }
-
-        .btn-abrir:hover {
-            transform: scale(1.05);
-            background-color: #fff0f2;
-        }
-
-        /* --- ESTILOS DA CARTA (PAPEL) --- */
-        .carta {
-            position: absolute;
-            width: 90%;
-            max-width: 600px;
-            background-color: #fffdf8;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            transform: scale(0.5) translateY(200px);
-            opacity: 0;
-            transition: all 1s ease-in-out;
-            z-index: 5;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        /* Barra de rolagem customizada */
-        .carta::-webkit-scrollbar {
-            width: 8px;
-        }
-        .carta::-webkit-scrollbar-track {
-            background: #fffdf8;
-            border-radius: 8px;
-        }
-        .carta::-webkit-scrollbar-thumb {
-            background: #e56b7a;
-            border-radius: 8px;
-        }
-
-        .carta p {
-            font-family: 'Caveat', cursive;
-            font-size: 24px;
-            color: #4a4a4a;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        /* --- ANIMAÇÕES DE ABERTURA --- */
-        .aberto .envelope-wrapper {
-            transform: translateY(100vh);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .aberto .envelope::before {
-            transform: rotateX(180deg);
-        }
-
-        .aberto .carta {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-            z-index: 20;
-        }
-        
-        .coracao-selo {
-            position: absolute;
-            font-size: 30px;
-            z-index: 4;
-            color: #fff;
-            top: 40px;
-        }
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub de Cartas</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <header>
+      <h1>Hub de Cartas</h1>
+    </header>
 
-    <div class="container" id="cena">
-        
-        <div class="envelope-wrapper">
-            <div class="envelope">
-                <div class="coracao-selo">❤️</div>
-            </div>
-            <button class="btn-abrir" onclick="abrirCarta()">Abrir Carta</button>
-        </div>
+    <!-- Lista de Cartas -->
+    <section id="hub-view">
+      <ul id="cartas-list" class="cartas-grid"></ul>
+    </section>
 
-        <div class="carta">
-            <p>Ei Marcela,</p>
-            
-            <p>Fiz essa carta pra te falar que, desde que a gente se conheceu, eu me sinto cada dia mais feliz com você. Quero te ter por perto mais e mais a cada dia.</p>
-            
-            <p>Me desculpa por ser muito crítico às vezes e por querer as coisas do meu jeito, mas juro que tô sempre tentando te entender melhor. Acabei ficando chateado sobre o nosso dia porque eu tava numa ansiedade gigante... mas eu tenho plena noção de que nem tudo acontece do jeito ou no momento que a gente quer.</p>
-            
-            <p>Desculpa por te deixar tão estressada comigo. Eu queria ser sua paz, mas às vezes acabo metendo os pés pelas mãos e estragando as coisas.</p>
-            
-            <p>Queria deixar claro que eu te quero muito, você me faz um bem danado. Sei que não tive as melhores atitudes ultimamente... mas quero muito melhorar e ter você comigo. Não quero ser um peso ou um problema, tipo como eu fui na hora de "escolher" o que a gente ia fazer no dia que marcamos de ficar juntos. Era pra eu ter sido o primeiro a falar pra você decidir, e não ter te criticado. Eu sei que isso não significa que você não me queria, e sim que era um aniversário e que essas datas são especiais pra você...</p>
+    <!-- Visualizador da Carta -->
+    <section id="carta-view" class="hidden">
+      <button id="voltar-btn">&larr; Voltar para o Hub</button>
+      <article class="carta-conteudo">
+        <h2 id="carta-titulo"></h2>
+        <span id="carta-data" class="data"></span>
+        <hr>
+        <pre id="carta-texto"></pre>
+      </article>
+    </section>
+  </div>
 
-            <p>Quero tanto te dar muito amor, muito carinho e ser de verdade um ponto de paz na sua vida. Direto me pego pensando em você e fico até sorrindo sozinho kkkk.</p>
-            
-            <p>Você virou alguém muito especial pra mim, e não tô falando de tempo, tô falando de sentimento mesmo. Foi algo que bateu desde o primeiro dia que encostei em você e olhei pra esse seu rostinho lindo que eu já amo.</p>
-            
-            <p>Eu não sou lá muito bom com cartas kkkkkk, poderia escrever milhares de coisas aqui e talvez nem fizesse tanto sentido ou conexão entre as frases...</p>
-
-            <p>Mas, enfim, o que mais importa é que você saiba que pode contar comigo. Independente de qualquer coisa, eu tô aqui pra você. ❤️</p>
-        </div>
-
-    </div>
-
-    <script>
-        function abrirCarta() {
-            document.getElementById('cena').classList.add('aberto');
-        }
-    </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
+
